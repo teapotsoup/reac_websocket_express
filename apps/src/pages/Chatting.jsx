@@ -3,7 +3,7 @@ import { useLocation } from "react-router";
 import useWebSocket from 'react-use-websocket';  //웹소켓 라이브러리를 사용 합니다.
 
 
-function Chatting(arg) {
+function Chatting() {
     let { state: { value, _id } } = useLocation();
     const [socketUrl,] = useState(`ws://localhost:8001/wsocket?id=${_id}`);
     const { sendMessage, lastMessage } = useWebSocket(socketUrl);  //웹소캣 라이브러리인 useWebSocket 입니다.
@@ -13,7 +13,7 @@ function Chatting(arg) {
     const [message, setMessage] = useState('');
     const onMessage = (event) => (setMessage(event.target.value));
     const sendMsg = () => {
-        let msg = {  //전송 규격
+        let msg = {
             _room_id: value._room_id,
             _id: _id,
             send: 'send',

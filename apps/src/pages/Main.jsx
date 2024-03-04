@@ -2,6 +2,8 @@ import React, {  useState }   from 'react'
 import {useNavigate} from 'react-router-dom'
 import axios from 'axios'
 import { useIdStore} from '../state/Session'
+import styled from "styled-components";
+import {Btn1} from "../comps/Btn1";
 
 function Main(arg) {
   const navigate = useNavigate();
@@ -13,6 +15,7 @@ function Main(arg) {
   const setPwd = ({target: {name, value}})=> setPassword(value);
 
   const logInOrJoin = ({target: {name, value}})=>{
+
     let param = { id, password:pwd };
     if(name === 'join') param.join = 'join';
 
@@ -29,23 +32,65 @@ function Main(arg) {
   }
 
   return (
-    <div className='container'>
+          <Wrapper>
+              <Title>
+                  Chat Room
+              </Title>
 
-      <div className='row'>
-        <span>id</span> : <input type='text' onChange={onId} value={id} className='form-control'/>
-      </div>
+              <Bar>
+                  <div>ID</div><input type='text' onChange={onId} value={id} />
+              </Bar>
 
-      <div className='row'>
-        <span>pwd</span> : <input type='text' onChange={setPwd} value={pwd} className='form-control'/>
-      </div>    
+              <Bar>
+                  <div>PWD</div>  <input type='text' onChange={setPwd} value={pwd} />
+              </Bar>
 
-      <div className='row'>
-        <button type='button' onClick={logInOrJoin} name='logIn' className='btn btn-info'>로그인</button>
-        <button type='button' onClick={logInOrJoin} name='join'  className='btn btn-success'>가입</button>
-      </div> 
-      
-    </div>
+              <BtnWrapper>
+                  <Btn1 name='logIn' onClick={logInOrJoin}>로그인</Btn1>
+                  <Btn1 name='join' onClick={logInOrJoin}>가입</Btn1>
+              </BtnWrapper>
+          </Wrapper>
+
   );
 }
+
+
+
+const Wrapper = styled.div`
+    margin-top: 100px;
+    width: 700px;
+    min-height: 500px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    border: black 1px solid;
+`
+
+const Title = styled.div`
+    font-size: 50px;
+    font-weight: bold;
+`
+
+const BtnWrapper = styled.div`
+    width: 230px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+`
+
+const Bar = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 250px;
+    margin-bottom: 10px;
+`
+
+
+
+
 
 export default Main;

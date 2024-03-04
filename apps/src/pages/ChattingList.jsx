@@ -4,6 +4,8 @@ import axios from 'axios'
 import {useNavigate} from 'react-router-dom'
 import {useIdStore} from "../state/Session";
 import  useRoomStore  from "../state/Room";
+import styled from "styled-components";
+import {Btn1} from "../comps/Btn1";
 
 function ChattingList() {
   const { register, handleSubmit, getValues } = useForm();
@@ -49,22 +51,28 @@ function ChattingList() {
   }
 
   return (
-    <div className='container'>   
-      <div className='h2'>여기는 방 목록 페이지 입니다.</div>   
-      <form onSubmit={handleSubmit(createRoom)} className='col-md-12 border m-4' >
-        <span className='h6'> * 방만들기</span>
-        <input type='text' name='roomname' {...register('roomname')} className='form-control' placeholder='방이름'  />
-        <input type='text' name='password' {...register('password')} className='form-control' placeholder='비번'/>
-        <button type='submit' className='btn btn-warning'>만들어져라</button>
+    <Wrapper>
+      <Title>Chat Room List</Title>
+      <form onSubmit={handleSubmit(createRoom)}  >
+        <div> * 방만들기</div>
+        <Bar>
+          <input type='text' name='roomname' {...register('roomname')} className='form-control' placeholder='방이름'/>
+        </Bar>
+        <Bar>
+          <input type='text' name='password' {...register('password')} className='form-control' placeholder='비번'/>
+        </Bar>
+        <BtnWrapper>
+          <Btn1 type='submit'>Create</Btn1>
+        </BtnWrapper>
         <div className='clearfix'>&nbsp;</div>
       </form>
       <div>
 
-        <div>* 방 목록들</div>
+        <div>Room lists</div>
         {
           pageRooms && pageRooms.length > 0 && pageRooms.map(
             room =>
-              <div key={room._room_id} className='col-md-12 border m-4' >
+              <div key={room._room_id} >
                 <div>방 이름 : {room?.roomname}, 현재 인원 : {room?.size}</div>
                 <input type='text' value={room.comparePwd} placeholder='비밀번호 입력' onChange={(event)=> setRoomPwd(event, room)}/>
                 <input type='button' value='방들어가기' onClick={ (event)=> accessRoom(event, room) }/>
@@ -73,8 +81,41 @@ function ChattingList() {
           )
         }
       </div>
-    </div>
+    </Wrapper>
   );
 }
+
+const Wrapper = styled.div`
+  margin-top: 100px;
+  width: 700px;
+  min-height: 500px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  border: black 1px solid;
+`
+
+const Title = styled.div`
+    font-size: 50px;
+    font-weight: bold;
+`
+
+const BtnWrapper = styled.div`
+    width: 230px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`
+
+const Bar = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 250px;
+    margin-bottom: 10px;
+`
 
 export default ChattingList;

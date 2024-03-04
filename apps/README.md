@@ -11,6 +11,7 @@
 <ul>
   <li>react-hook-form</li>
   <li>react-router-dom</li>
+  <li>styled-components</li>
   <li>react-use-websocket</li>
   <li>zustand</li>
 </ul>
