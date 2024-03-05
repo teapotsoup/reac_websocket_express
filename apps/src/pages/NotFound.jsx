@@ -1,15 +1,17 @@
-import  { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import {useEffect, useState} from 'react';
+import {useNavigate} from 'react-router-dom';
 import {useIdStore} from "../state/Session";
+
 function NotFound() {
-    const { id } = useIdStore();
+    const {id} = useIdStore();
 
     const navigate = useNavigate();
     const [countdown, setCountdown] = useState(4);
 
     useEffect(() => {
         const timer = setTimeout(() => {
-            id.length > 0 ? navigate('/ChattingList') : navigate('/')
+            id.length > 0 ? navigate('/ChattingList') :
+                navigate('/')
         }, 4000);
 
         const interval = setInterval(() => {
@@ -20,7 +22,7 @@ function NotFound() {
             clearInterval(interval);
             clearTimeout(timer);
         };
-    }, [navigate,id.length]);
+    }, [navigate, id.length]);
 
     return (
         <div>
@@ -28,7 +30,7 @@ function NotFound() {
             <p>{countdown}초 후에 홈페이지로 이동합니다.</p>
         </div>
     );
-  }
-  
-  export default NotFound;
+}
+
+export default NotFound;
   

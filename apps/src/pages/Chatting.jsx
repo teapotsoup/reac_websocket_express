@@ -1,12 +1,17 @@
-import React, { useState, useEffect } from 'react'
-import { useLocation } from "react-router";
-import useWebSocket from 'react-use-websocket';  //웹소켓 라이브러리를 사용 합니다.
+import React, {useState, useEffect} from 'react'
+import {useLocation} from "react-router-dom";
+// useLocation이 react-router-dom에서 가져와야 하며,
+// react-router에서 가져오는 것이 아닙니다.
+import useWebSocket from 'react-use-websocket';
+import {Wrapper} from "../comps/comps";
+import styled from "styled-components";
+import {Btn1} from "../comps/Btn1";  //웹소켓 라이브러리를 사용 합니다.
 
 
 function Chatting() {
-    let { state: { value, _id } } = useLocation();
+    let {state: {value, _id}} = useLocation();
     const [socketUrl,] = useState(`ws://localhost:8001/wsocket?id=${_id}`);
-    const { sendMessage, lastMessage } = useWebSocket(socketUrl);  //웹소캣 라이브러리인 useWebSocket 입니다.
+    const {sendMessage, lastMessage} = useWebSocket(socketUrl);  //웹소캣 라이브러리인 useWebSocket 입니다.
     const [messageHistory, setMessageHistory] = useState([]);  //웹소켓에서 메시지를 받으면 호출되는 상태 입니다.
 
     //메시지를 보내기 위한 기능 입니다.
@@ -50,12 +55,8 @@ function Chatting() {
     }, [value, _id, sendMessage])
 
     return (
-        <div className='container'>
-            <div className='col-md-12 border m-4'>
-                chatting
-                <input type='text' onChange={onMessage} value={message} placeholder='메시지를 입력하세요' className='form-control' />
-                <button type='button' onClick={sendMsg} className='btn btn-success'> send test</button>
-            </div>
+        <Wrapper>
+
 
             <div className='col-md-12 border m-4'>
                 <div>전체 메시지</div>
@@ -76,8 +77,23 @@ function Chatting() {
                     )}
                 </ul>
             </div>
-        </div>
+            <ChattingBar>
+                <input type='text' onChange={onMessage} value={message} placeholder='메시지를 입력하세요'
+                       className='form-control'/>
+                <Btn1 width='110px' height='40px' onClick={sendMsg}> send</Btn1>
+            </ChattingBar>
+
+        </Wrapper>
     );
 }
+
+const ChattingBar = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 300px;
+    margin-bottom: 10px;
+    gap: 10px;
+`
 
 export default Chatting;

@@ -3,7 +3,7 @@
 
 <ul>
   <li>React + Websocket + Express으로 만들어진 간단한 채팅 앱입니다.</li>
-
+  <li>express 서버를 껏다 키면 모든 계정 정보가 초기화됩니다.</li>
 </ul>
 
 <h4 align="center">SPEC</h4>
