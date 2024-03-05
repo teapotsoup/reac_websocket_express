@@ -10,15 +10,12 @@ function Main() {
 
     const [pwd, setPassword] = useState("")
     const {id, setStoreId} = useIdStore()
-    //아이디, 비밀번호가 바뀐경우에 대한 이벤트 정의 입니다(나중에 hook처럼 라이브러리를 써도 좋을 것 같습니다.)
     const onId = ({target: {value}}) => setStoreId(value);
     const setPwd = ({target: {value}}) => setPassword(value);
 
-    const logInOrJoin = ({target: {name, value}}) => {
-
+    const logInOrJoin = ({target: {name}}) => {
         let param = {id, password: pwd};
         if (name === 'join') param.join = 'join';
-        console.log(param)
         axios.post('data/joinOrLogIn', param).then(arg => {
             let {result} = arg.data;
             if (result === 'OK') {

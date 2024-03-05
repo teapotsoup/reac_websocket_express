@@ -3,21 +3,18 @@ import Main from './pages/Main'
 import ChattingList from './pages/ChattingList'
 import NotFound from './pages/NotFound'
 import Chatting from './pages/Chatting'
-import {useIdStore} from "./state/Session";
 
 
 function App(props) {
-    // zustand 전역 id 값으로 로그인 여부 관리
-    const {id} = useIdStore();
-
+    // 로그아웃하면 바로 로그인 화면(Main)으로
     return (
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<Main {...props}/>}></Route>
                 <Route path="/chattingList"
-                       element={id.length > 0 ? <ChattingList {...props}/> : <NotFound {...props}/>}></Route>
+                       element={<ChattingList {...props}/>}></Route>
                 <Route path="/chatting"
-                       element={id.length > 0 ? <Chatting {...props}/> : <NotFound {...props}/>}></Route>
+                       element={<Chatting {...props}/>}></Route>
                 <Route path="*" element={<NotFound {...props}/>}></Route>
             </Routes>
         </BrowserRouter>

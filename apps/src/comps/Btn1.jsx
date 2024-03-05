@@ -44,7 +44,7 @@ export const Btn1 = styled.button`
 
     &:hover {
         border: 2px solid transparent;
-        color: black;
+        color: white;
         transform: scale(1.05);
         will-change: transform;
     }

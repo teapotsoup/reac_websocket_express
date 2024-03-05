@@ -12,13 +12,18 @@ function ChattingList() {
     const {register, handleSubmit, getValues, reset} = useForm();
     const {insertRoom} = useRoomStore();
     const [pageRooms, setPageRooms] = useState()
-    const {id} = useIdStore();
+    const {id, logout} = useIdStore();
+    const navigate = useNavigate();
 
     //최초 등록된 방 목록을 가져 옵니다.
     useEffect(() => {
-        axios.get('data/getRoomList', {}).then(res => {
-            setPageRooms(res.data)
-        })
+        if (id.length > 0) {
+            axios.get('data/getRoomList', {}).then(res => {
+                setPageRooms(res.data)
+            })
+        } else {
+            navigate('/')
+        }
     }, []) // 추가시 랜더링 고려
 
     //방만들기 버튼기능 함수 입니다.
@@ -42,10 +47,7 @@ function ChattingList() {
     }
 
     //방 들어가기 함수 입니다.
-    const navigate = useNavigate();
     const accessRoom = (event, value) => {
-        // console.log(value)
-
         if (value.comparePwd === value.password) {// 비밀번호가 일치하면 방에 들여보내 줍니다.(서버에서 확인하는 걸로 바꾸는게 당연히 효율적인 방법 입니다!)
             setTimeout(() => navigate('/chatting', {state: {value, _id: id}}), 10)
         }
@@ -53,11 +55,16 @@ function ChattingList() {
 
     return (
         <Wrapper>
+            <SmallTitle>현재 사용자 - {id}</SmallTitle>
+            <Btn1 onClick={() => {
+                logout();
+                navigate('/');
+            }} width='150px'
+                  height='40px'>로그아웃</Btn1>
             <Title>Chat Room List</Title>
             <form onSubmit={handleSubmit(createRoom)}>
                 <MiddleWrapper>
-                    <SmallTitle>방만들기
-                    </SmallTitle>
+                    <SmallTitle>방만들기</SmallTitle>
                 </MiddleWrapper>
                 <Bar>
                     <input type='text' name='roomname' {...register('roomname')} className='form-control'
@@ -106,30 +113,22 @@ function ChattingList() {
     );
 }
 
+const MiddleWrapper = styled.div`
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+`
+
 const BtnWrapper = styled.div`
     width: 250px;
     display: flex;
     align-items: center;
     justify-content: center;
 `
-
-const MiddleWrapper = styled.div`
-    display: flex;
-    justify-content: center;
-`
-
 const SmallTitle = styled.div`
     font-size: 25px;
     font-weight: bold;
 `
-
-const ListWrappper = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px
-`
-
 const RoomWrapper = styled.div`
     width: 400px;
     display: flex;
@@ -154,6 +153,11 @@ const CellWrapper = styled.div`
     display: flex;
     align-items: center;
 `
-
+const ListWrappper = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px
+`
 
 export default ChattingList;
