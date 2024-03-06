@@ -10,7 +10,7 @@ function NotFound() {
 
     useEffect(() => {
         const timer = setTimeout(() => {
-            id.length > 0 ? navigate('/ChattingList') :
+            id.length > 0 ? navigate('/chatting-list') :
                 navigate('/')
         }, 4000);
 

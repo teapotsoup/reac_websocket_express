@@ -21,7 +21,7 @@ function Main() {
             if (result === 'OK') {
                 alert('성공!')
                 setStoreId(id)
-                setTimeout(() => navigate('/ChattingList', {state: {param}}), 10)
+                setTimeout(() => navigate('/chatting-list', {state: {param}}), 10)
             } else {
                 alert(`실패 : ${result}`)
             }

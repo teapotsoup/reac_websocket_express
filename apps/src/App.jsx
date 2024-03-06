@@ -11,7 +11,7 @@ function App(props) {
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<Main {...props}/>}></Route>
-                <Route path="/chattingList"
+                <Route path="/chatting-list"
                        element={<ChattingList {...props}/>}></Route>
                 <Route path="/chatting"
                        element={<Chatting {...props}/>}></Route>

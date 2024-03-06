@@ -68,7 +68,9 @@ function Chatting() {
     return (
         <>
             <RightWrapper>
-                <Btn1 width='110px' height='40px' onClick={sendMsg}> 나가기</Btn1>
+                <Btn1 width='110px' height='40px' onClick={() => {
+                    navigate('/chatting-list')
+                }}> 나가기</Btn1>
             </RightWrapper>
             <WholeCase>
                 <Content>
